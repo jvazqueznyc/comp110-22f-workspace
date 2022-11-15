@@ -2,9 +2,9 @@
 
 __author__ = "730622831"
 
-#
-def contains_char (string_of_multiple_chrs: str, single_search_chr: str) -> bool:
-    """contains_char checks to see if single character is found anywhere in string of characters"""
+
+def contains_char(string_of_multiple_chrs: str, single_search_chr: str) -> bool:
+    """contains_char checks to see if single character is found anywhere in string of characters."""
     assert len(single_search_chr) == 1
     index_counter_of_string: int = 0
     found_searched_character = False
@@ -18,7 +18,7 @@ def contains_char (string_of_multiple_chrs: str, single_search_chr: str) -> bool
     return found_searched_character
 
 
-def emojified (string_1_guess: str, string_2_secret: str) -> str:
+def emojified(string_1_guess: str, string_2_secret: str) -> str:
     """Given two strings of equal length, a emoji string is returned whose color corresponds to level of success for a letter."""
     assert len(string_1_guess) == len(string_2_secret)
     WHITE_BOX: str = "\U00002B1C"
@@ -37,35 +37,34 @@ def emojified (string_1_guess: str, string_2_secret: str) -> str:
                 emoji_result = emoji_result + WHITE_BOX                
         index_counter_of_string_1_guess = index_counter_of_string_1_guess + 1
         index_counter_of_string_2_secret = index_counter_of_string_2_secret + 1
-    print(emoji_result)
+    return emoji_result
 
 
-def input_guess (expected_length_of_guess: int) -> str:
-    """Requests a required length of guess, asks user for a guess that is equal to that length, and finally returns guess to caller"""
-    secret_word_guess: str = input(f"Enter a {str(expected_length_of_guess)}-letter word: ")
+def input_guess(expected_length_of_guess: int) -> str:
+    """Requests a required length of guess, asks user for a guess that is equal to that length, and finally returns guess to caller."""
+    secret_word_guess: str = input(f"Enter a {str(expected_length_of_guess)} character word: ")
     while len(secret_word_guess) != expected_length_of_guess:
         secret_word_guess = input(f"That wasn't {str(expected_length_of_guess)} chars! Try again: ")
     else:
         return secret_word_guess
 
-#
+
 def main() -> None:
     """The entrypoint of the program and main game loop."""
-    correct_secret_word: str = "codescodes"
+    correct_secret_word: str = "codes"
     completed_attempts: int = 0
     won_game: bool = False
-    while completed_attempts < 6 and won_game == False:
+    while completed_attempts < 6 and won_game is False:
         print(f"=== Turn {completed_attempts + 1}/6 ===")
         input_guess_return = input_guess((len(correct_secret_word)))
-        emojified(input_guess_return, correct_secret_word)
+        print(emojified(input_guess_return, correct_secret_word))
         if input_guess_return == correct_secret_word:
             print(f"You won in {(completed_attempts + 1)}/6 turns!")
             won_game = True
-            return
         completed_attempts = completed_attempts + 1
     if completed_attempts == 6:
         print("X/6 - Sorry, try again tomorrow!")
-        return
+
 
 if __name__ == "__main__":
     main()
